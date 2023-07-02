@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/static/ioeerc1.css">
+	<link rel="stylesheet" type="text/css" href="/static/paginator1.css">
+	<title>ERC</title>
+</head>
+<body>
+	<header>
+	<div id="container">
+		<nav>
+			<div>
+			<div class="nav-bar-header">
+
+        <a class="navbar-brand" href="#">ACES-ERC</a>
+    </div>
+
+        <div class="serach-box-button">
+		<form method="post"> 
+		{% csrf_token %}
+        <input type="text" name="servicename" value="">
+        <input type="submit" value="search"> 
+		</form>
+        </div>
+    </div>
+    
+    <div class="menu-container">
+		<ul>
+
+				<li class="current"><a href=" ">Home</a></li>
+				<li><a href="about.html">About</a></li>
+				
+				<li><a href="/contactus/">Contact Us</a></li>
+				<li><a href="/register/">Register</a></li>
+			</ul>
+		</div>
+		</nav>
+	</div>
+</header>
+
+<section id="showcase">
+	<div class="container"> 
+		<h2 class="logotype"> ACES-ERC </h2>
+	</div>
+
+	
+
+</section>
+
+<marquee onmouseover="stop()" onmouseout="start()"> 
+	{% for n in newsdata  %}
+	 {% comment %} <a href='/newsdetail/{{n.id}}'> {{ n.news_title }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a> {% endcomment %}
+	 <a href='/newsdetail/{{n.news_slug}}'> {{ n.news_title }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+	 {% endfor %}
+</marquee>
+
+<section id="box-with-div">
+	<div class="container">
+
+		<h2 align="center"> <u> Our Services </u> </h2>
+		
+		{% for n in servicedata1 %}
+		<div class="box">
+			<img src="{{ n.service_icon }}">
+			<h1> {{ n.service_title }} </h1>
+			<p> {{n.service_description|safe}} </p>
+			<p> No. of Words: {{n.service_description|safe|wordcount }} </p>
+			<p> Total Length: {{n.service_description|safe|length}} </p>
+		
+		</div>
+		{% empty %}
+		<h1> No Data Found </h1>
+		{% endfor %}
+
+ 		
+		{% comment %} {% for n in newsdata %}
+		<div class="box">
+			
+			<h1> {{ n.news_title }} </h1>
+			<p> {{n.news_desc|safe}} </p>
+		
+		</div>
+		{% endfor %}  {% endcomment %}
+
+
+		
+
+		
+	
+		
+		{% comment %} <div class="box">
+		<img src="static/logo_html.png"> 
+		<h1> HTML Markup </h1>
+		<p> HTML5 Markup
+
+html5 is the latest version of html.its cooperative effort between the world wide web consortium and the web Hypertext Application Technology working group.s</p>
+	</div>
+	<div class="box">
+		<img src="/static/logo_css.png"> 
+		<h1> CSS Styling </h1>
+		<p> CSS3 Styling
+
+css is used to style and layout web pages-for example, to alter the font , color, size and spacing of your content, split it into multiple columns , or add animations and other decorative features.</p>
+	</div>
+	<div class="box">
+		<img src="/static/logo_webmaintainence.png"> 
+		<br>
+		<br>
+	
+		<h1> Web Maintainence </h1>
+		<p>
+Website Maintainence
+
+website maintainance is important to any business, regardless of size. A well-maintained website attracts new customers and maintains the interest level of existing customer.
+
+</p>
+	</div>
+</section>
+<section id="box-with-div">
+
+
+		<div class="box">
+		<img src="/static/logo_python.png"> 
+		<h1> Python </h1>
+		<p> Python Programming
+
+Python is a popular programming language . It can be used on a server to create web applicatios. it can be used alongside software to create workflows.
+
+</p>
+	</div> 
+		<div class="box">
+		<img src="/static/logo_java.png"> 
+		<br>	
+		<br>
+		
+		<h1> Java programming </h1>
+		<p>
+Java Programming
+
+Java is programming , created in 1995.it is owned by oracle, and more than 3 billion devices run java.
+
+
+</p>
+	</div>
+		<div class="box">
+		<img src="/static/logo_android.png"> 
+		<br>
+		<br>
+	
+		<h1> Android Development </h1>
+		<p>
+Android Development
+
+Android is an operating system and programming platform developed by Google for smartphones and other mobile devices.
+
+</p>
+	</div> {% endcomment %}
+
+	</div>
+	
+	<div class="paginator">
+	
+		{% if servicedata1.has_previous %}
+		
+		<a href="/?page={{ servicedata1.previous_page_number }}" class="prev">Previous</a>
+		
+	
+		{% endif %}
+		<a href="/?page=1" >First</a>
+		{% for n in totalpagelist %}
+		<a class="{% if request.path == "/?page={{n}}" %} active {% endif %}" href="/?page={{n}}" >{{n}}</a>
+		{% endfor %}
+		<a href="/?page={{lastpage}}" class="page">Last</a>
+	
+		
+		{% if servicedata1.has_next %}
+		<a href="/?page={{ servicedata1.next_page_number }}" class="next">Next</a>
+		{% endif %}
+	  </div>
+
+</section>
+
+
+
+
+
+<section id="footer">
+	<footer>
+		
+	
+	<div class="row">
+
+		<div class="item">
+			<h1> Services </h1>
+			<ul>
+				<li> <a href="web"> web designing </a></li>
+				<li> <a href="web"> HTTP Markup </a></li>
+				<li> <a href="web"> Python </a></li>
+			</ul>
+		</div>
+
+		<div class="item">
+			<h1> Social medias </h1>
+			<ul>
+				<li> <a href="web"> Facebook </a></li>
+				<li> <a href="web"> Instagram </a></li>
+				<li> <a href="web"> Twitter </a></li>
+			</ul>
+		</div>
+
+		<div class="item">
+			<h1> Contact Us </h1>
+			<ul>
+				<li> <a href="web">  980000000000 </a></li>
+				<li> <a href="web"> Aces@purc.tu.edu.np </a></li>
+				<li> <a href="web"> Aces Youtube channel </a></li>
+			</ul>
+		</div>
+
+
+
+		<div class="item">
+			<h1> Customer Choices </h1>
+			<ul>
+				<li> <a href="web"> Ethical Hacking </a></li>
+				<li> <a href="web"> Graphic Designing </a></li>
+				<li> <a href="web"> web development </a></li>
+			</ul>
+		</div>
+		
+
+	</div>
+
+
+	</footer>
+</section>
+
+
+
+</body>
+</html>
